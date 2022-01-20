@@ -48,7 +48,9 @@ public class Resource {
 	public ResponseEntity<?> update(@RequestBody Product p, @PathVariable Integer idProduct) {
 		try {
 			Product existProduct = service.get(idProduct);
-			service.save(p);
+			existProduct.setName(p.getName());
+			existProduct.setPrice(p.getPrice());
+			service.save(existProduct);
 
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (NoSuchElementException e) {
